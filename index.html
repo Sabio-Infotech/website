@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grepthor Software Solutions</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3B5A78;
+      --secondary: #6B6E71;
+      --accent: #4CA1AF;
+      --light-bg: #f5f6fa;
+      --white: #fff;
+      --glass: rgba(255,255,255,0.7);
+      --shadow: 0 8px 32px rgba(59,90,120,0.18);
+      --radius: 24px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: linear-gradient(135deg, var(--light-bg) 60%, #eaf3f7 100%);
+      color: var(--primary);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .navbar {
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin-bottom: 0;
+      transition: background 0.4s;
+    }
+    .navbar-brand, .navbar-nav .nav-link {
+      color: var(--primary) !important;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 1.1rem;
+      transition: color 0.2s;
+    }
+    .navbar-brand img {
+      height: 48px;
+      width: 48px;
+      margin-right: 12px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(59,90,120,0.08);
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
+    .navbar-brand img:hover { transform: scale(1.08);}
+    .nav-link.active, .nav-link:hover {
+      color: var(--accent) !important;
+      text-shadow: 0 2px 8px rgba(76,161,175,0.10);
+    }
+    .page-section {
+      display: none;
+      animation: fadeIn 0.8s;
+      min-height: 60vh;
+    }
+    .page-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 60%, var(--secondary) 100%);
+      color: var(--white);
+      padding: 90px 0 60px 0;
+      text-align: center;
+      border-radius: 0 0 70px 70px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -60px;
+      transform: translateX(-50%);
+      width: 80vw;
+      height: 180px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 80%);
+      opacity: 0.15;
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero .btn {
+      margin-top: 30px;
+      font-size: 1.2rem;
+      padding: 12px 32px;
+      border-radius: 30px;
+      background: var(--accent);
+      border: none;
+      transition: background 0.3s, color 0.3s;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px rgba(76,161,175,0.13);
+    }
+    .hero .btn:hover {
+      background: var(--white);
+      color: var(--primary);
+      border: 1px solid var(--accent);
+    }
+    .features {
+      margin-top: -40px;
+      margin-bottom: 40px;
+      z-index: 2;
+      position: relative;
+    }
+    .feature-card {
+      background: var(--glass);
+      border: none;
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      padding: 32px 18px;
+      margin-bottom: 30px;
+      transition: transform 0.18s, box-shadow 0.18s;
+      backdrop-filter: blur(8px);
+    }
+    .feature-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 48px rgba(76,161,175,0.18);
+      background: var(--white);
+    }
+    .feature-icon {
+      font-size: 2.6rem;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .project-section {
+      background: var(--glass);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px 30px;
+      margin: 40px auto 0 auto;
+      max-width: 1050px;
+      animation: fadeIn 0.8s;
+      backdrop-filter: blur(7px);
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 32px;
+    }
+    .project-card {
+      background: #f8fafc;
+      border-radius: 18px;
+      box-shadow: 0 2px 8px rgba(76,161,175,0.08);
+      padding: 28px 22px;
+      transition: box-shadow 0.2s, background 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      border-left: 6px solid var(--accent);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 28px rgba(76,161,175,0.15);
+      background: #eaf3f7;
+      transform: translateY(-7px) scale(1.03);
+    }
+    .project-card .project-icon {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .project-card h5 {
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .project-tags {
+      margin: 12px 0 0 0;
+      font-size: 0.97rem;
+    }
+    .project-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 12px;
+      padding: 2px 12px;
+      margin-right: 7px;
+      margin-bottom: 5px;
+      font-size: 0.93em;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .about-section, .contact-section {
+      background: var(--glass);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px 30px;
+      margin: 40px auto 0 auto;
+      max-width: 950px;
+      animation: fadeIn 0.8s;
+      backdrop-filter: blur(7px);
+    }
+    .section-title {
+      color: var(--primary);
+      margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px rgba(59,90,120,0.10);
+    }
+    .about-logo {
+      height: 90px;
+      border-radius: 50%;
+      background: #f0f2f8;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 16px rgba(59,90,120,0.08);
+    }
+    .contact-section .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0.2rem rgba(76,161,175,0.15);
+    }
+    .btn-primary {
+      background: var(--primary);
+      border: none;
+      border-radius: 30px;
+      padding: 10px 30px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: background 0.3s;
+    }
+    .btn-primary:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+    footer {
+      background: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 22px 0 10px 0;
+      margin-top: 60px;
+      border-radius: 30px 30px 0 0;
+      font-size: 1.08rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 -2px 16px rgba(59,90,120,0.08);
+    }
+    @media (max-width: 991px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 767px) {
+      .hero { padding: 60px 0 40px 0; border-radius: 0 0 30px 30px;}
+      .about-section, .contact-section, .project-section { padding: 18px 6px;}
+      .features { margin-top: 0; }
+      .about-logo { height: 70px;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="#" onclick="showPage('home')">
+        <img src="grepthor.jpg" alt="Grepthor Logo">
+        <span>Grepthor Software Solutions</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto" id="mainNav">
+          <li class="nav-item"><a class="nav-link active" href="#" onclick="showPage('home')"><i class="fas fa-home"></i> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('about')"><i class="fas fa-users"></i> About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home Page -->
+  <div id="homePage" class="page-section active">
+    <section class="hero">
+      <div class="container hero-content">
+        <h1 class="display-4 fw-bold">Empowering Your Digital Transformation</h1>
+        <p class="lead mt-4 mb-5">
+          Grepthor Software Solutions delivers cutting-edge software products and IT services to accelerate your business growth.<br>
+          Experience innovation, reliability, and seamless integration with our expert team.
+        </p>
+        <button class="btn btn-lg" onclick="showPage('contact')">Get in Touch</button>
+      </div>
+    </section>
+    <section class="container features">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="fas fa-code"></i></div>
+            <h5>Custom Software Development</h5>
+            <p>Tailored solutions to meet your unique business needs with scalable, robust, and secure code.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+            <h5>Cloud & IT Services</h5>
+            <p>Modernize your infrastructure with scalable, secure, and efficient cloud solutions for enterprises of any size.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="feature-card text-center">
+            <div class="feature-icon"><i class="fas fa-headset"></i></div>
+            <h5>Consulting & Support</h5>
+            <p>End-to-end guidance from digital strategy and architecture to implementation and ongoing support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Spring Boot Projects & Java Testing UI -->
+    <section class="project-section">
+      <h2 class="section-title text-center"><i class="fab fa-java"></i> Spring Boot Projects & Java Testing UI</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-users-cog"></i></div>
+          <h5>Employee Management System</h5>
+          <p>
+            A comprehensive Spring Boot application for managing employee records, attendance, payroll, and reporting. Features REST APIs, role-based access, and a modern responsive UI built with React.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">REST API</span>
+            <span class="project-tag">React</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">JWT Auth</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-shopping-cart"></i></div>
+          <h5>E-Commerce Backend</h5>
+          <p>
+            Scalable Spring Boot microservices for product catalog, orders, inventory, and payment integration. Includes JWT security, Docker deployment, and real-time order tracking.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">Microservices</span>
+            <span class="project-tag">Docker</span>
+            <span class="project-tag">JWT</span>
+            <span class="project-tag">Kafka</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-vials"></i></div>
+          <h5>Java Testing UI Suite</h5>
+          <p>
+            Interactive web UI for running and visualizing JUnit, Selenium, and API integration tests. Features live logs, test history, custom test case management, and CI/CD integration.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Java</span>
+            <span class="project-tag">JUnit</span>
+            <span class="project-tag">Selenium</span>
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">CI/CD</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-database"></i></div>
+          <h5>Inventory Management System</h5>
+          <p>
+            Spring Boot + Thymeleaf application for tracking stock, suppliers, and orders. Includes reporting dashboard, user authentication, and Excel/PDF export.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">Thymeleaf</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">PDF Export</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+          <h5>Real-Time Analytics Dashboard</h5>
+          <p>
+            A live analytics dashboard for visualizing business KPIs, integrating with Spring Boot backend and WebSocket for real-time updates. Customizable widgets and exportable reports.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Spring Boot</span>
+            <span class="project-tag">WebSocket</span>
+            <span class="project-tag">Chart.js</span>
+            <span class="project-tag">React</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-icon"><i class="fas fa-user-shield"></i></div>
+          <h5>Secure API Gateway</h5>
+          <p>
+            API gateway built with Spring Cloud Gateway for secure routing, rate limiting, and monitoring of microservices. Features OAuth2/JWT authentication and Swagger API docs.
+          </p>
+          <div class="project-tags">
+            <span class="project-tag">Spring Cloud Gateway</span>
+            <span class="project-tag">OAuth2</span>
+            <span class="project-tag">JWT</span>
+            <span class="project-tag">Swagger</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- About Us Page -->
+  <div id="aboutPage" class="page-section">
+    <section class="about-section">
+      <h2 class="section-title"><i class="fas fa-users"></i> About Us</h2>
+      <div class="row align-items-center">
+        <div class="col-md-4 mb-3 text-center">
+          <img src="https://pplx-res.cloudinary.com/image/private/user_uploads/34897001/e84ef366-b4fe-43e2-a7b1-9c2928153ab7/grepthor.jpg" alt="Grepthor Logo" class="about-logo">
+        </div>
+        <div class="col-md-8">
+          <p>
+            <b>Grepthor Software Solutions Pvt Ltd</b> was founded in 2013 by <b>Vijay Sagar</b> with a vision to empower businesses through technology. Our journey began with a passion for solving complex challenges and a commitment to delivering high-quality software solutions.
+          </p>
+          <ul>
+            <li><b>Legal Name:</b> Grepthor Software Solutions Pvt Ltd</li>
+            <li><b>Founded:</b> 2013</li>
+            <li><b>Operating Status:</b> Active</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <h6 class="fw-bold"><i class="fas fa-bullseye"></i> Mission</h6>
+          <p>To deliver innovative, secure, and scalable software solutions that help our clients succeed in a digital world.</p>
+        </div>
+        <div class="col-md-4">
+          <h6 class="fw-bold"><i class="fas fa-eye"></i> Vision</h6>
+          <p>To be a trusted technology partner, enabling digital transformation for businesses globally.</p>
+        </div>
+        <div class="col-md-4">
+          <h6 class="fw-bold"><i class="fas fa-gem"></i> Values</h6>
+          <ul>
+            <li>Integrity & transparency</li>
+            <li>Customer-centric approach</li>
+            <li>Continuous learning & improvement</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Contact Us Page -->
+  <div id="contactPage" class="page-section">
+    <section class="contact-section">
+      <h2 class="section-title"><i class="fas fa-envelope"></i> Contact Us</h2>
+      <p>We’d love to hear from you! Reach out for project inquiries, support, or to learn more about our services.</p>
+      <form id="contactForm" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+          <label for="name" class="form-label">Name *</label>
+          <input type="text" class="form-control" id="name" required>
+          <div class="invalid-feedback">Please enter your name.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email *</label>
+          <input type="email" class="form-control" id="email" required>
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+        <div class="col-12">
+          <label for="message" class="form-label">Message *</label>
+          <textarea class="form-control" id="message" rows="4" required></textarea>
+          <div class="invalid-feedback">Please enter your message.</div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-primary mt-2" type="submit">Send Message</button>
+        </div>
+      </form>
+      <hr>
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <h6><i class="fas fa-phone-alt"></i> Phone</h6>
+          <p><a href="tel:7702477064">7702477064</a></p>
+        </div>
+        <div class="col-md-4">
+          <h6><i class="fas fa-user-tie"></i> Email HR</h6>
+          <p><a href="mailto:hr@grepthorsoftwaresolutions.com">hr@grepthorsoftwaresolutions.com</a></p>
+        </div>
+        <div class="col-md-4">
+          <h6><i class="fas fa-paper-plane"></i> Email Contact</h6>
+          <p><a href="mailto:contactus@grepthorsoftwaresolutions.com">contactus@grepthorsoftwaresolutions.com</a></p>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <h6><i class="fas fa-map-marker-alt"></i> Address</h6>
+          <p>6th Floor, Omega-C Block, Divyasree Building, Hitech City Rd, Kondapur, Hyderabad, Telangana 500081, India</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Grepthor Software Solutions Pvt Ltd. All rights reserved.
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Page Navigation Script -->
+  <script>
+    function showPage(page) {
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+      if(page === 'home') document.getElementById('homePage').classList.add('active');
+      if(page === 'about') document.getElementById('aboutPage').classList.add('active');
+      if(page === 'contact') document.getElementById('contactPage').classList.add('active');
+      document.querySelectorAll('#mainNav .nav-link').forEach(link => link.classList.remove('active'));
+      if(page === 'home') document.querySelectorAll('#mainNav .nav-link')[0].classList.add('active');
+      if(page === 'about') document.querySelectorAll('#mainNav .nav-link')[1].classList.add('active');
+      if(page === 'contact') document.querySelectorAll('#mainNav .nav-link')[2].classList.add('active');
+      window.scrollTo(0,0);
+    }
+    // Form validation
+    (() => {
+      'use strict';
+      const form = document.getElementById('contactForm');
+      if(form) {
+        form.addEventListener('submit', function(e) {
+          if (!form.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+          } else {
+            e.preventDefault();
+            alert('Thank you for contacting Grepthor Software Solutions!');
+            form.reset();
+            form.classList.remove('was-validated');
+          }
+          form.classList.add('was-validated');
+        }, false);
+      }
+    })();
+  </script>
+</body>
+</html>
